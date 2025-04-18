@@ -1,0 +1,155 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:local="clr-namespace:ExplorerSharp;assembly=ExplorerSharp"
+			 mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="35"
+			 x:Name="NavPanelControl"
+             x:Class="ExplorerSharp.NavigationPanel">
+	<UserControl.Styles>
+
+		<Style Selector="Button.NavBtn">
+			<Setter Property="Width" Value="20"/>
+			<Setter Property="FontSize" Value="18"/>
+			<Setter Property="Template">
+				<Setter.Value>
+					<ControlTemplate>
+						<TextBlock Text="{TemplateBinding Content}"/>
+					</ControlTemplate>
+				</Setter.Value>
+			</Setter>
+		</Style>
+
+		<Style Selector="Button.PathBtn">
+			<Setter Property="Template">
+				<Setter.Value>
+					<ControlTemplate>
+						<Border x:Name="PART_Border" Background="{TemplateBinding Background}" Margin="0" BorderThickness="1" BorderBrush="Transparent">
+							<TextBlock Margin="2,0" Classes="Text" Text="{TemplateBinding Content}"/>
+						</Border>
+					</ControlTemplate>
+				</Setter.Value>
+			</Setter>
+		</Style>
+
+		<Style Selector="Button.PathBtnArrow">
+			<Setter Property="Template">
+				<Setter.Value>
+					<ControlTemplate>
+						<Border x:Name="PART_Border" Background="{TemplateBinding Background}" Margin="0" BorderThickness="0,1,1,1" BorderBrush="Transparent">
+							<TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="12" FontWeight="ExtraBold" FontFamily="Segoe UI" Text=">" Foreground="{DynamicResource NavPanelBorderBrush}"/>
+						</Border>
+					</ControlTemplate>
+				</Setter.Value>
+			</Setter>
+		</Style>
+
+		<Style Selector="ListBoxItem">
+			<Setter Property="Template">
+				<Setter.Value>
+					<ControlTemplate x:DataType="local:NavPathBtnData">
+						<Grid ColumnDefinitions="Auto,14">
+							<Button Grid.Column="0" Click="PathButton_Click" Classes="PathBtn" Background="{TemplateBinding Background}" Content="{Binding Name}" VerticalAlignment="Stretch"/>
+							<Button Grid.Column="1" Classes="PathBtnArrow" Background="{TemplateBinding Background}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+						</Grid>
+					</ControlTemplate>
+				</Setter.Value>
+			</Setter>
+		</Style>
+
+
+		<Style Selector="ListBoxItem:pointerover">
+			<Setter Property="Background" Value="{DynamicResource MouseOver1Brush}"/>
+		</Style>
+
+		<Style Selector="TextBox">
+			<Setter Property="MinHeight" Value="1"/>
+			<Setter Property="Background" Value="Transparent"/>
+			<Setter Property="Template">
+				<Setter.Value>
+					<ControlTemplate>
+						<Border>
+							<Grid Background="{TemplateBinding Background}">
+								<TextBlock IsVisible="False" IsHitTestVisible="False"
+										   x:Name="PART_HintText"
+										   Margin="9,1"
+										   Foreground="{DynamicResource NavPanelBorderBrush}">
+									<Run Text="{x:Static local:Resources.SearchIn}"/>
+									<Run Text="{Binding CurrentDirectoryDisplayName, ElementName=NavPanelControl}"/>
+									<TextBlock.IsVisible>
+										<MultiBinding Converter="{x:Static BoolConverters.And}">
+											<Binding RelativeSource="{RelativeSource TemplatedParent}" Path="Text" Converter="{x:Static StringConverters.IsNullOrEmpty}"/>
+											<Binding RelativeSource="{RelativeSource TemplatedParent}" Path="!IsFocused"/>
+										</MultiBinding>
+									</TextBlock.IsVisible>
+								</TextBlock>
+								<TextPresenter Margin="6,1"
+											   CaretBrush="{DynamicResource ForegroundBrush}"
+											   Text="{TemplateBinding Text, Mode=TwoWay}"
+											   CaretBlinkInterval="{TemplateBinding CaretBlinkInterval}"
+											   CaretIndex="{TemplateBinding CaretIndex}"
+											   SelectionStart="{TemplateBinding SelectionStart}"
+											   SelectionEnd="{TemplateBinding SelectionEnd}"
+											   TextAlignment="{TemplateBinding TextAlignment}"
+											   TextWrapping="{TemplateBinding TextWrapping}"
+											   LineHeight="{TemplateBinding LineHeight}"
+											   LetterSpacing="{TemplateBinding LetterSpacing}"
+											   PasswordChar="{TemplateBinding PasswordChar}"
+											   RevealPassword="{TemplateBinding RevealPassword}"
+											   SelectionBrush="#880088FF"
+											   SelectionForegroundBrush="{TemplateBinding SelectionForegroundBrush}"
+											   x:Name="PART_TextPresenter"/>
+							</Grid>
+						</Border>
+					</ControlTemplate>
+				</Setter.Value>
+			</Setter>
+		</Style>
+
+		<!--<Style Selector="TextBox:empty /template/ TextBlock#PART_HintText">
+			<Setter Property="IsVisible" Value="True"/>
+		</Style>-->
+
+	</UserControl.Styles>
+	<Grid Background="{DynamicResource Background2Brush}">
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition Width="106"/>
+			<ColumnDefinition Width="2*"/>
+			<ColumnDefinition Width="12"/>
+			<ColumnDefinition Width="1*"/>
+		</Grid.ColumnDefinitions>
+
+		<StackPanel Grid.Column="0" Margin="12,0,0,0" Orientation="Horizontal">
+			<Button Classes="NavBtn" Click="BackButton_Click" Content="&lt;" Padding="2"/>
+			<Button Classes="NavBtn" Content="&gt;" Padding="2"/>
+		</StackPanel>
+		<Border BorderBrush="{DynamicResource NavPanelBorderBrush}" Margin="0,6,0,7" Grid.Column="1" BorderThickness="1">
+			<Grid>
+				<ListBox PointerPressed="ListBox_PointerPressed" Name="PathListBox" Background="Transparent">
+					<ListBox.ItemsPanel>
+						<ItemsPanelTemplate>
+							<StackPanel Orientation="Horizontal"/>
+						</ItemsPanelTemplate>
+					</ListBox.ItemsPanel>
+
+					<!--<ListBoxItem>134</ListBoxItem>
+				<ListBoxItem>134</ListBoxItem>
+				<ListBoxItem>134</ListBoxItem>-->
+				</ListBox>
+				<TextBox LostFocus="TextBox_LostFocus" KeyDown="TextBox_KeyDown" IsVisible="False" IsHitTestVisible="False" x:Name="PathTextBox" FontFamily="Segoe UI" FontSize="12"/>
+			</Grid>
+
+			<!--<TextBlock Name="TestText" Text="testo" Classes="Text"></TextBlock>-->
+		</Border>
+
+		<GridSplitter Grid.Column="2" Width="5" Background="Transparent"/>
+		
+		<Border BorderBrush="{DynamicResource NavPanelBorderBrush}" Margin="0,6,12,7" Grid.Column="3" BorderThickness="1">
+			<!--<TextBox FontFamily="Segoe UI" FontSize="12" Watermark="{Binding CurrentDirectoryDisplayName, ElementName=NavPanelControl, StringFormat={}{x:Static local:Resources.SearchIn}{0}}">-->
+			<TextBox FontFamily="Segoe UI" FontSize="12">
+
+			</TextBox>
+		</Border>
+
+	</Grid>
+</UserControl>

@@ -1,0 +1,78 @@
+<Application xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             x:Class="ExplorerSharp.App"
+             RequestedThemeVariant="Default">
+             <!-- "Default" ThemeVariant follows system theme variant. "Dark" or "Light" are other available options. -->
+
+    <Application.Styles>
+		<FluentTheme/>
+        <!--<SimpleTheme />-->
+			<!--<SimpleTheme.Resources>
+				<SolidColorBrush x:Key="ThemeForegroundBrush" Color="Blue"></SolidColorBrush>
+			</SimpleTheme.Resources>-->
+		<!--</SimpleTheme>-->
+		<StyleInclude Source="avares://Avalonia.Controls.DataGrid/Themes/Fluent.xaml"/>
+		<Style Selector="TextBlock.Text">
+			<Setter Property="FontFamily" Value="Segoe UI"/>
+			<Setter Property="FontSize" Value="12"/>
+			<Setter Property="Foreground" Value="{DynamicResource ForegroundBrush}"/>
+		</Style>
+    </Application.Styles>
+	<Application.Resources>
+		<ResourceDictionary>
+			<ResourceDictionary.ThemeDictionaries>
+				<ResourceDictionary x:Key='Light'>
+					<SolidColorBrush x:Key='BackgroundBrush'>White</SolidColorBrush>
+					<SolidColorBrush x:Key='Background2Brush'>White</SolidColorBrush>
+					<SolidColorBrush x:Key='Background3Brush'>#f5f6f7</SolidColorBrush>
+					<SolidColorBrush x:Key='DirectoryBgBrush'>White</SolidColorBrush>
+					<SolidColorBrush x:Key='BorderBrush'>#dbdcdc</SolidColorBrush>
+					<SolidColorBrush x:Key='MouseOver1Brush'>#fdfdff</SolidColorBrush>
+					<SolidColorBrush x:Key='MouseOverBorder1Brush'>#ebecec</SolidColorBrush>
+					<SolidColorBrush x:Key='MouseOver2Brush'>#e5f3ff</SolidColorBrush>
+					<SolidColorBrush x:Key='FileSelectedBrush'>#cce8ff</SolidColorBrush>
+					<SolidColorBrush x:Key='FileSelectedBorderBrush'>#99d1ff</SolidColorBrush>
+					<SolidColorBrush x:Key='DataGridSeparatorBrush'>#e3e4e5</SolidColorBrush>
+					<SolidColorBrush x:Key='NavPanelBorderBrush'>#303030</SolidColorBrush>
+					<SolidColorBrush x:Key='ForegroundBrush'>Black</SolidColorBrush>
+					<SolidColorBrush x:Key='Foreground2Brush'>#6a6b6d</SolidColorBrush>
+				</ResourceDictionary>
+				<ResourceDictionary x:Key='Dark'>
+					<SolidColorBrush x:Key='BackgroundBrush'>#88202020</SolidColorBrush>
+					<SolidColorBrush x:Key='Background2Brush'>#BB191919</SolidColorBrush>
+					<SolidColorBrush x:Key='Background3Brush'>#CC202020</SolidColorBrush>
+					<SolidColorBrush x:Key='DirectoryBgBrush'>#AA202020</SolidColorBrush>
+					<SolidColorBrush x:Key='BorderBrush'>#AA555555</SolidColorBrush>
+					<SolidColorBrush x:Key='MouseOver1Brush'>#554d4d4d</SolidColorBrush>
+					<SolidColorBrush x:Key='MouseOverBorder1Brush'>#55404040</SolidColorBrush>
+					<SolidColorBrush x:Key='MouseOver2Brush'>#554d4d4d</SolidColorBrush>
+					<SolidColorBrush x:Key='FileSelectedBrush'>#777777</SolidColorBrush>
+					<SolidColorBrush x:Key='FileSelectedBorderBrush'>#3c3c3c</SolidColorBrush>
+					<SolidColorBrush x:Key='DataGridSeparatorBrush'>#636363</SolidColorBrush>
+					<SolidColorBrush x:Key='NavPanelBorderBrush'>#535353</SolidColorBrush>
+					<SolidColorBrush x:Key='ForegroundBrush'>White</SolidColorBrush>
+					<SolidColorBrush x:Key='Foreground2Brush'>#dedede</SolidColorBrush>
+				</ResourceDictionary>
+
+
+				<!--<ResourceDictionary x:Key='Dark'>
+					<SolidColorBrush x:Key='BackgroundBrush'>Black</SolidColorBrush>
+					<SolidColorBrush x:Key='Background2Brush'>#191919</SolidColorBrush>
+					<SolidColorBrush x:Key='Background3Brush'>#202020</SolidColorBrush>
+					<SolidColorBrush x:Key='DirectoryBgBrush'>#202020</SolidColorBrush>
+					<SolidColorBrush x:Key='BorderBrush'>#2b2b2b</SolidColorBrush>
+					<SolidColorBrush x:Key='MouseOver1Brush'>#4d4d4d</SolidColorBrush>
+					<SolidColorBrush x:Key='MouseOverBorder1Brush'>#404040</SolidColorBrush>
+					<SolidColorBrush x:Key='MouseOver2Brush'>#4d4d4d</SolidColorBrush>
+					<SolidColorBrush x:Key='FileSelectedBrush'>#777777</SolidColorBrush>
+					<SolidColorBrush x:Key='FileSelectedBorderBrush'>#3c3c3c</SolidColorBrush>
+					<SolidColorBrush x:Key='DataGridSeparatorBrush'>#636363</SolidColorBrush>
+					<SolidColorBrush x:Key='NavPanelBorderBrush'>#535353</SolidColorBrush>
+					<SolidColorBrush x:Key='ForegroundBrush'>White</SolidColorBrush>
+					<SolidColorBrush x:Key='Foreground2Brush'>#dedede</SolidColorBrush>
+				</ResourceDictionary>-->
+			</ResourceDictionary.ThemeDictionaries>
+			
+		</ResourceDictionary>
+	</Application.Resources>
+</Application>

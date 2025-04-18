@@ -1,0 +1,106 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:local="clr-namespace:ExplorerSharp;assembly=ExplorerSharp"
+			 mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="ExplorerSharp.TabsPanel">
+	<UserControl.Styles>
+		<Style Selector="TabControl">
+			<Setter Property="FontFamily" Value="Segoe UI"/>
+			<Setter Property="FontSize" Value="12"/>
+			<Setter Property="Padding" Value="0"/>
+			<Setter Property="Background" Value="Black"/>
+			<Setter Property="Template">
+				<Setter.Value>
+					<ControlTemplate x:DataType="TabControl">
+						<Grid>
+							<Grid.RowDefinitions>
+								<RowDefinition Height="24"/>
+								<RowDefinition Height="Auto"/>
+							</Grid.RowDefinitions>
+							<Grid Grid.Row="0" Background="Transparent">
+								<Grid.ColumnDefinitions>
+									<ColumnDefinition Width="Auto"/>
+									<ColumnDefinition Width="*"/>
+								</Grid.ColumnDefinitions>
+								<ItemsPresenter DoubleTapped="ItemsPresenter_DoubleTapped" Grid.Column="0" Name="PART_ItemsPresenter" ItemsPanel="{TemplateBinding ItemsPanel}"/>
+								<Border Grid.Column="1" Background="{DynamicResource BackgroundBrush}" BorderThickness="0,0,0,1" BorderBrush="{DynamicResource BorderBrush}"/>
+
+							</Grid>
+							<Border x:Name="PART_ContentBorder" Height="92" IsVisible="False" Grid.Row="1" BorderThickness="0,0,0,1" Background="{DynamicResource Background3Brush}" BorderBrush="{DynamicResource BorderBrush}">
+								<ContentPresenter Name="PART_SelectedContentHost"
+							      Background="Transparent"
+								  Margin="{TemplateBinding Padding}"
+								  HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+								  VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+								  Content="{TemplateBinding SelectedContent}"
+								  ContentTemplate="{TemplateBinding SelectedContentTemplate}" />
+								
+							</Border>
+						</Grid>
+					</ControlTemplate>
+				</Setter.Value>
+			</Setter>
+		</Style>
+		<Style Selector="TabItem">
+			<Setter Property="VerticalAlignment" Value="Top"/>
+			<Setter Property="Background" Value="{DynamicResource BackgroundBrush}"/>
+			<Setter Property="Template">
+				<Setter.Value>
+					<ControlTemplate x:DataType="TabItem">
+						<Grid Height="24" VerticalAlignment="Top" Background="{TemplateBinding Background}">
+							<Border Name="PART_TabItemBorder" BorderThickness="0,0,0,1" Height="24" Background="Transparent" VerticalAlignment="Top" BorderBrush="{DynamicResource BorderBrush}">
+								
+							</Border>
+							<TextBlock Text="{TemplateBinding Header}" Classes="Text" Padding="13 2"/>
+						</Grid>
+
+					</ControlTemplate>
+				</Setter.Value>
+			</Setter>
+		</Style>
+
+
+
+
+
+		<!--<Style Selector="TabItem:pointerover">
+			<Setter Property="Background" Value="{DynamicResource MouseOver1Brush}"/>
+		</Style>-->
+		<Style Selector="TabItem:pointerover /template/ Border#PART_TabItemBorder">
+			<Setter Property="Background" Value="{DynamicResource MouseOver1Brush}"/>
+			<!--<Setter Property="BorderBrush" Value="{DynamicResource MouseOverBorder1Brush}"/>-->
+		</Style>
+
+		<Style Selector="TabItem:selected">
+			<Setter Property="Margin" Value="0 0 0 0"/>
+		</Style>
+		
+		<Style Selector="TabItem:selected /template/ Border#PART_TabItemBorder">
+			
+			<Setter Property="Background" Value="{DynamicResource Background3Brush}"/>
+			<Setter Property="BorderBrush" Value="{DynamicResource BorderBrush}"/>
+			<Setter Property="BorderThickness" Value="1 1 1 0"/>
+		</Style>
+
+
+	</UserControl.Styles>
+	<Grid>
+		<TabControl x:Name="Tabs">
+			<TabItem Header="{x:Static local:Resources.FileMenu}">
+				<Border Background="Transparent" BorderThickness="0" BorderBrush="Blue"></Border>
+			</TabItem>
+			<TabItem Header="{x:Static local:Resources.HomeMenu}">
+				<TextBlock>123</TextBlock>
+			</TabItem>
+			<TabItem Header="{x:Static local:Resources.ShareMenu}">
+				<TextBlock>123</TextBlock>
+			</TabItem>
+			<TabItem Header="{x:Static local:Resources.ViewMenu}">
+				<TextBlock>123</TextBlock>
+			</TabItem>
+
+		</TabControl>
+	</Grid>
+</UserControl>

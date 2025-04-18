@@ -1,0 +1,213 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+			 xmlns:local="clr-namespace:ExplorerSharp;assembly=ExplorerSharp"
+			 xmlns:converters="clr-namespace:ExplorerSharp.Converters;assembly=ExplorerSharp"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="ExplorerSharp.Controls.GridDirPresenter">
+	<UserControl.Resources>
+		<converters:FileSizeConverter x:Key="FileSizeConverter"/>
+	</UserControl.Resources>
+	<UserControl.Styles>
+		<Style Selector="DataGridRow">
+			<Setter Property="Height" Value="22"/>
+			<Setter Property="Margin" Value="0,-1,0,0"/>
+		</Style>
+
+
+		<Style Selector="DataGrid">
+			<Setter Property="BorderBrush" Value="Transparent"/>
+			<Setter Property="Template">
+				<ControlTemplate>
+					<Border x:Name="DataGridBorder"
+							Background="{TemplateBinding Background}"
+							BorderBrush="{TemplateBinding BorderBrush}"
+							BorderThickness="{TemplateBinding BorderThickness}"
+							CornerRadius="{TemplateBinding CornerRadius}">
+						<Grid ColumnDefinitions="Auto,*,Auto"
+							  RowDefinitions="Auto,*,Auto,Auto"
+							  ClipToBounds="True">
+							<DataGridColumnHeader Name="PART_TopLeftCornerHeader"
+												  Theme="{StaticResource DataGridTopLeftColumnHeader}" />
+							<DataGridColumnHeadersPresenter Name="PART_ColumnHeadersPresenter"
+															Grid.Column="1"
+															Grid.Row="0" Grid.ColumnSpan="2" />
+
+							<DataGridRowsPresenter Name="PART_RowsPresenter"
+												   Grid.Row="1"
+												   Grid.Column="0"
+												   ScrollViewer.IsScrollInertiaEnabled="{TemplateBinding IsScrollInertiaEnabled}">
+								<DataGridRowsPresenter.GestureRecognizers>
+									<ScrollGestureRecognizer CanHorizontallyScroll="True"
+															 CanVerticallyScroll="True"
+															 IsScrollInertiaEnabled="{Binding (ScrollViewer.IsScrollInertiaEnabled), ElementName=PART_RowsPresenter}" />
+								</DataGridRowsPresenter.GestureRecognizers>
+							</DataGridRowsPresenter>
+							<Rectangle Name="PART_BottomRightCorner"
+									   Fill="{DynamicResource DataGridScrollBarsSeparatorBackground}"
+									   Grid.Column="2"
+									   Grid.Row="2" />
+							<ScrollBar Name="PART_VerticalScrollbar"
+									   Orientation="Vertical"
+									   Grid.Column="2"
+									   Grid.Row="1"
+									   Width="{DynamicResource ScrollBarSize}" />
+
+							<Grid Grid.Column="1"
+								  Grid.Row="2"
+								  ColumnDefinitions="Auto,*">
+								<Rectangle Name="PART_FrozenColumnScrollBarSpacer" />
+								<ScrollBar Name="PART_HorizontalScrollbar"
+										   Grid.Column="1"
+										   Orientation="Horizontal"
+										   Height="{DynamicResource ScrollBarSize}" />
+							</Grid>
+						</Grid>
+					</Border>
+				</ControlTemplate>
+			</Setter>
+		</Style>
+
+		<Style Selector="DataGridColumnHeadersPresenter">
+			<Setter Property="Height" Value="29"/>
+		</Style>
+
+
+
+
+		<Style Selector="DataGridRow:pointerover /template/ Rectangle#BackgroundRectangle">
+			<Setter Property="Fill" Value="{DynamicResource MouseOver2Brush}"/>
+		</Style>
+
+		<Style Selector="DataGridRow:selected /template/ Rectangle#BackgroundRectangle">
+			<Setter Property="Fill" Value="{DynamicResource FileSelectedBrush}"/>
+			<Setter Property="Stroke" Value="{DynamicResource FileSelectedBorderBrush}"/>
+			<Setter Property="StrokeThickness" Value="1"/>
+			<Setter Property="Opacity" Value="1"/>
+		</Style>
+
+		<!--<Style Selector="DataGridRow /template/ Rectangle#BackgroundRectangle">
+			<Setter Property="Opacity" Value="1"/>
+		</Style>-->
+
+
+		<!--<Style Selector="DataGridRow:pointerover">
+			<Setter Property="Background" Value="{DynamicResource MouseOver1Brush}"/>
+		</Style>-->
+
+		<Style Selector="DataGridColumnHeader">
+			<Setter Property="FontSize" Value="12"/>
+			<Setter Property="FontFamily" Value="Segoe UI"/>
+			<Setter Property="Foreground" Value="{DynamicResource Foreground2Brush}"/>
+			<Setter Property="Template">
+				<Setter.Value>
+					<ControlTemplate x:DataType="DataGridColumnHeader">
+						<Border BorderThickness="0,0,1,0"
+								Height="25"
+								BorderBrush="{DynamicResource DataGridSeparatorBrush}"
+								Background="Transparent"
+								VerticalAlignment="Top"
+								HorizontalAlignment="Stretch">
+							<ContentPresenter Margin="12,5"
+								Content="{TemplateBinding Content}"
+								VerticalAlignment="Center"
+								ContentTemplate="{TemplateBinding ContentTemplate}"
+								Foreground="{TemplateBinding Foreground}" />
+						</Border>
+					</ControlTemplate>
+				</Setter.Value>
+			</Setter>
+		</Style>
+
+		<Style Selector="DataGridCell">
+			<Setter Property="FontSize" Value="12"/>
+			<Setter Property="FontFamily" Value="Segoe UI"/>
+			<!--<Setter Property="RenderOptions.TextRenderingMode" Value="SubpixelAntialias"/>-->
+			<Setter Property="Background" Value="Transparent"/>
+			<Setter Property="Template">
+				<Setter.Value>
+					<ControlTemplate x:DataType="DataGridCell">
+
+						<Border BorderThickness="0" Background="Transparent" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+							<ContentPresenter Margin="{TemplateBinding Padding}"
+								HorizontalAlignment="Stretch"
+								VerticalAlignment="Stretch"
+								Content="{TemplateBinding Content}"
+								ContentTemplate="{TemplateBinding ContentTemplate}"
+								Foreground="{TemplateBinding Foreground}" />
+						</Border>
+
+
+					</ControlTemplate>
+				</Setter.Value>
+			</Setter>
+		</Style>
+
+		<Style Selector="ContextMenu">
+			<Setter Property="Background" Value="Green"/>
+			
+			<Setter Property="Template">
+				<Setter.Value>
+					<ControlTemplate>
+						<Border BorderThickness="1" Background="{DynamicResource Background3Brush}" BorderBrush="{DynamicResource BorderBrush}">
+							<ItemsPresenter/>
+						</Border>
+					</ControlTemplate>
+				</Setter.Value>
+			</Setter>
+
+		</Style>
+
+		<Style Selector="MenuItem">
+			<Setter Property="Background" Value="Transparent"/>
+			<Setter Property="Template">
+				<Setter.Value>
+					<ControlTemplate>
+						<Border Background="{TemplateBinding Background}">
+							<TextBlock Margin="12,2" Classes="Text" Text="{TemplateBinding Header}"/>
+						</Border>
+					</ControlTemplate>
+				</Setter.Value>
+			</Setter>
+		</Style>
+
+		<Style Selector="MenuItem:pointerover">
+			<Setter Property="Background" Value="{DynamicResource MouseOver2Brush}"/>
+		</Style>
+	</UserControl.Styles>
+	<DataGrid
+						  x:Name="DirectoryContentGrid"
+						  IsReadOnly="True"
+						  CanUserResizeColumns="True"
+						  AutoGenerateColumns="False"
+						  Background="{DynamicResource DirectoryBgBrush}"
+						  DoubleTapped="ListBox_DoubleTapped"
+						  PointerReleased="DataGrid_PointerReleased"
+						  CellPointerPressed="DataGrid_CellPointerPressed"
+						  x:DataType="local:FileInfo" >
+		<DataGrid.Columns>
+			<DataGridTemplateColumn Width="170" Header="{x:Static local:Resources.FileName}">
+				<DataGridTemplateColumn.CellTemplate>
+					<DataTemplate x:DataType="local:FileInfo">
+						<Grid ColumnDefinitions="Auto,*">
+							<Image Grid.Column="0" Source="{Binding Thumbnail}" Height="16" Margin="12,0,4,0" Width="16"/>
+							<TextBlock Grid.Column="1" Text="{Binding Name}" TextTrimming="CharacterEllipsis" VerticalAlignment="Center" Classes="Text"/>
+							<Grid.ContextMenu>
+								<ContextMenu>
+									<MenuItem Header="Открыть"/>
+									<MenuItem Header="Открыть с помощью"/>
+									<MenuItem Header="Какие-то действия"/>
+									<MenuItem Header="123"/>
+								</ContextMenu>
+							</Grid.ContextMenu>
+						</Grid>
+					</DataTemplate>
+				</DataGridTemplateColumn.CellTemplate>
+			</DataGridTemplateColumn>
+			<DataGridTextColumn Width="140" Header="{x:Static local:Resources.DateModified}" Foreground="{DynamicResource Foreground2Brush}" Binding="{Binding LastModified}"/>
+			<DataGridTextColumn Width="140" Header="{x:Static local:Resources.Size}" Foreground="{DynamicResource Foreground2Brush}" Binding="{Binding Size, Converter={StaticResource FileSizeConverter}, Mode=OneWay}"/>
+		</DataGrid.Columns>
+
+	</DataGrid>
+</UserControl>

@@ -1,0 +1,79 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+		xmlns:local="clr-namespace:ExplorerSharp;assembly=ExplorerSharp"
+        xmlns:controls="clr-namespace:ExplorerSharp.Controls"
+        mc:Ignorable="d"
+		d:DesignWidth="800"
+		d:DesignHeight="500"
+		Width="800"
+		Height="500"
+        x:Class="ExplorerSharp.MainWindow"
+        Title="Main Window"
+		Name="MainWin"
+		TransparencyLevelHint="AcrylicBlur"
+        Background="Transparent"
+		ExtendClientAreaToDecorationsHint="True">
+	<Window.Styles>
+		
+
+	</Window.Styles>
+
+	<Grid>
+		<Grid.RowDefinitions>
+			<RowDefinition Height="30"/>
+			<RowDefinition Height="Auto"/>
+			<RowDefinition Height="35"/>
+			<RowDefinition/>
+		</Grid.RowDefinitions>
+		<!--<ExperimentalAcrylicBorder IsHitTestVisible="False">
+			<ExperimentalAcrylicBorder.Material>
+				<ExperimentalAcrylicMaterial
+					BackgroundSource="Digger"
+					TintColor="Black"
+					TintOpacity="1"
+					MaterialOpacity="0.65" />
+			</ExperimentalAcrylicBorder.Material>
+		</ExperimentalAcrylicBorder>-->
+
+		<Grid Grid.Row="0" ColumnDefinitions="Auto,*" Background="{DynamicResource BackgroundBrush}" IsHitTestVisible="False">
+			<Image Grid.Column="0" Source="avares://ExplorerSharp/ExplorerSharpCropped.png" VerticalAlignment="Center" Width="16" Margin="8,0,6,0" ></Image>
+			<TextBlock Grid.Column="1" Classes="Text" VerticalAlignment="Center" Text="{Binding Title, ElementName=MainWin}" />
+		</Grid>
+
+		<Grid Grid.Row="1">
+			<local:TabsPanel/>
+		</Grid>
+		<Grid Grid.Row="2">
+			<local:NavigationPanel Name="NavPanel"/>
+		</Grid>
+		<Grid Grid.Row="3">
+			<Grid>
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="120"/>
+					<ColumnDefinition Width="3"/>
+					<ColumnDefinition/>
+				</Grid.ColumnDefinitions>
+				<Grid Background="{DynamicResource Background2Brush}">
+					
+				</Grid>
+				<Border Grid.Column="1" Background="{DynamicResource Background2Brush}" BorderBrush="{DynamicResource BorderBrush}" BorderThickness="0,0,1,0"/>
+				<GridSplitter Grid.Column="1" Background="Transparent"/>
+				<!--<ListBox Grid.Column="2" DoubleTapped="ListBox_DoubleTapped" Name="DirectoryContent">
+					<ListBox.ItemTemplate>
+						<DataTemplate>
+							<Border BorderThickness="0">
+								<TextBlock Classes="Text" Text="{Binding}"/>
+							</Border>
+						</DataTemplate>
+					</ListBox.ItemTemplate>
+				</ListBox>-->
+				<controls:GridDirPresenter Grid.Column="2" Name="DirectoryContent"/>
+			</Grid>
+		</Grid>
+
+
+
+	</Grid>
+</Window>
