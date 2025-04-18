@@ -6,6 +6,3 @@
 
 ![image1](imgs/e1.png)
 ![image2](imgs/e2.png)
-
-## Серверная часть часть (AttendanceAPI)
-API для взаимодействия с базой данных MS SQL Server на ASP.NET
